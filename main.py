@@ -6,7 +6,7 @@ def switch_sym_with_next(string, n):
 
 alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 frequency_ordered_letters = 'оеаинтсрвлкмдпуяыьгзбчйхжшюцщэфёъ'
-string = 'Тест'
+string = 'Тест123'
 frequency_ordered_letters_in_text = alphabet
 amount = [0] * 33
 # Подсчёт встречаемости букв в заданном тексте
