@@ -6,7 +6,11 @@ def switch_sym_with_next(string, n):
 
 alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 frequency_ordered_letters = 'оеаинтсрвлкмдпуяыьгзбчйхжшюцщэфёъ'
-file = open('ciphertext.txt', 'r', encoding="utf-8")
+try:
+    file = open('ciphertext.txt', 'r', encoding="utf-8")
+except IOError as e:
+    print('Не удалось открыть файл!')
+    exit()
 frequency_ordered_letters_in_text = alphabet
 amount = [0] * 33
 # Подсчёт встречаемости букв в заданном тексте
@@ -26,7 +30,7 @@ for i in range(0, len(alphabet)):
 # Отладка
 print(frequency_ordered_letters_in_text)
 print(amount)
-# Замена букв в тексте
+# Замена букв в тексте в соответствии с частотным анализом
 file.seek(0)
 new_string = ''
 while True:
@@ -40,3 +44,26 @@ while True:
     else:
         new_string += ch
 print(new_string)
+# Дополнительные замены
+while True:
+    print('\nДополнительные замены ("exit" для выхода)')
+    print("Заменить: ")
+    first_char = input().lower()
+    if first_char == 'exit':
+        file_output = open('planetext.txt', 'w', encoding='utf-8')
+        file_output.write(new_string)
+        file.close()
+        file_output.close()
+        exit()
+    print("И: ")
+    second_char = input().lower()
+    if len(first_char) != 1 or len(second_char) != 1 or alphabet.find(first_char) == -1 or alphabet.find(
+            second_char) == -1:
+        print("Данные введены неверно\n")
+        input()
+    else:
+        new_string = new_string.replace(first_char, '***').replace(second_char, first_char).replace('***', second_char)
+        new_string = new_string.replace(first_char.upper(), '***').replace(second_char.upper(),
+                                                                           first_char.upper()).replace('***',
+                                                                                                       second_char.upper())
+    print(new_string)
