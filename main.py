@@ -6,14 +6,17 @@ def switch_sym_with_next(string, n):
 
 alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 frequency_ordered_letters = 'оеаинтсрвлкмдпуяыьгзбчйхжшюцщэфёъ'
-string = 'Тест123'
+file = open('ciphertext.txt', 'r', encoding="utf-8")
 frequency_ordered_letters_in_text = alphabet
 amount = [0] * 33
 # Подсчёт встречаемости букв в заданном тексте
-for i in range(0, len(string)):
-    for j in range(0, len(alphabet)):
-        if string[i] == alphabet[j] or string[i] == alphabet[j].upper():
-            amount[j] += 1
+while True:
+    ch = file.read(1)
+    if ch == '':
+        break
+    for i in range(0, len(alphabet)):
+        if ch == alphabet[i] or ch == alphabet[i].upper():
+            amount[i] += 1
 # Сортировка
 for i in range(0, len(alphabet)):
     for j in range(0, len(alphabet) - 1):
@@ -24,12 +27,16 @@ for i in range(0, len(alphabet)):
 print(frequency_ordered_letters_in_text)
 print(amount)
 # Замена букв в тексте
+file.seek(0)
 new_string = ''
-for i in range(0, len(string)):
-    if alphabet.find(string[i]) != -1:
-        new_string += frequency_ordered_letters[frequency_ordered_letters_in_text.find(string[i])]
-    elif alphabet.upper().find(string[i]) != -1:
-        new_string += frequency_ordered_letters[frequency_ordered_letters_in_text.upper().find(string[i])].upper()
+while True:
+    ch = file.read(1)
+    if ch == '':
+        break
+    if alphabet.find(ch) != -1:
+        new_string += frequency_ordered_letters[frequency_ordered_letters_in_text.find(ch)]
+    elif alphabet.upper().find(ch) != -1:
+        new_string += frequency_ordered_letters[frequency_ordered_letters_in_text.upper().find(ch)].upper()
     else:
-        new_string += string[i]
+        new_string += ch
 print(new_string)
